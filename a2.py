@@ -34,16 +34,34 @@ def match(pattern: List[str], source: List[str]) -> List[str]:
         # WARNING: this condition contains the bulk of the code for the assignment
         # If you get stuck on this one, we encourage you to attempt the other conditions
         #   and come back to this one afterwards
+        elif pattern[pind]=="%":
+            pind+=1
+            if pind==len(pattern):
+                result.append(" ".join(source[sind:]))
+                return result
+            else:
+                current=sind
+                while pattern[pind] != source[sind]:
+                    sind+=1
+                    if sind== len(source):
+                        return None
+                result.append(" ".join(source[current:sind]))
+
 
         # 3) if we reached the end of the source but not the pattern
-        if sind==len(source) and pind<len(pattern):
+        elif sind==len(source) and pind<len(pattern):
+            return None
              
 
         # 4) if the current thing in the pattern is an _
+        elif pattern[pind]=="_":
+            result.append(source[sind])
+            pind+=1
+            sind+=1
 
         # 5) if the current thing in the pattern is the same as the current thing in the
         # source
-        if pattern[pind]==source[sind]:
+        elif pattern[pind]==source[sind]:
             pind+=1
             sind+=1
             
@@ -68,6 +86,7 @@ if __name__ == "__main__":
     assert match(["x", "y", "z", "z"], ["x", "y", "z"]) == None, "test 4 failed"
     assert match(["x", "_", "z"], ["x", "y", "z"]) == ["y"], "test 5 failed"
     assert match(["x", "_", "_"], ["x", "y", "z"]) == ["y", "z"], "test 6 failed"
+    
     assert match(["%"], ["x", "y", "z"]) == ["x y z"], "test 7 failed"
     assert match(["x", "%", "z"], ["x", "y", "z"]) == ["y"], "test 8 failed"
     assert match(["%", "z"], ["x", "y", "z"]) == ["x y"], "test 9 failed"
