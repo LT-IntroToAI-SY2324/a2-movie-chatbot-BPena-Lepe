@@ -13,8 +13,9 @@ This assignment is about learning and applying the while loop and iterating thro
 ## Reflection Questions
 1. What was difficult for you while completing the match function?
 
-
+The most difficult part of the match function was implementing the % part of the function as the % varied widely in the way it worked.
 
 2. Explain how you could use the match function for extracting information from a movie database.
 
+I could use the match function to find the variables in the persons question about the movie like the year, the title or the actors.
 
